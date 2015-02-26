@@ -69,6 +69,14 @@ var title_screen = new Sprite();
 		title_screen.image_background.y = 0;
 		title_screen.image_background.image = Textures.load
 			("./Common/Textures/Title/title background.png");
+			
+		title_screen.data= new TextBox
+			("iDeek v.0.1");
+		title_screen.data.font = "Courier";
+		title_screen.data.fontSize = 20;
+		title_screen.data.color = "#FFFFFF";
+		title_screen.data.x = 930;
+		title_screen.data.y = 700;
 		
 		// This room's active sprites
 		title_screen.button_start = new TextBox("<< Start >>");
@@ -109,6 +117,7 @@ var title_screen = new Sprite();
 		
 		// Visible sprites at creation time
 		world.addChild(title_screen.image_background);
+		world.addChild(title_screen.data);
 		world.addChild(title_screen.button_start);
 		world.addChild(title_screen.button_credit);
 		
@@ -120,8 +129,64 @@ var title_screen = new Sprite();
 	// Clear this room
 	title_screen.clear = function() {
 		world.removeChild(title_screen.image_background);
+		world.removeChild(title_screen.data);
 		world.removeChild(title_screen.button_start);
 		world.removeChild(title_screen.button_credit);
+		while(active_sprites.length > 0)
+			active_sprites.pop();
+	}
+	
+/***===   "Credits screen"   ===***/
+var credit_screen = new Sprite();
+	// Create this room
+	credit_screen.create = function() {
+		// This room's passive sprites
+		credit_screen.text = new TextBox
+			("iDeek consists of four individuals:\n"+
+			 "            Rene Isais\n"+
+			 "            Hayk Manvelyan\n"+
+			 "           Franz Breedon\n"+
+			 "           Chaiz Tuimoloau\n");
+		credit_screen.text.font = "Courier";
+		credit_screen.text.fontSize = 30;
+		credit_screen.text.color = "#FFFFFF";
+		credit_screen.text.x = 200;
+		credit_screen.text.y = 100;
+		
+		// This room's active sprites
+		credit_screen.ret = new TextBox("<< Return  ");
+		credit_screen.ret.font = "Courier";
+		credit_screen.ret.fontSize = 30;
+		credit_screen.ret.color = "#FFFFFF";
+		credit_screen.ret.x = 0;
+		credit_screen.ret.y = 690;
+		credit_screen.ret.mouseOver = false;
+		credit_screen.ret.bgColor = "#000000";
+		credit_screen.ret.drawBG = true;
+		credit_screen.ret.update = function() {
+			if(credit_screen.ret.mouseOver) {
+				credit_screen.ret.color = "#484848";
+			}else {
+				credit_screen.ret.color = "#FFFFFF";
+			}
+		}
+		credit_screen.ret.click = function() {
+			changeRoom(title_screen);
+		}
+		
+		
+		// Visible sprites at creation time
+		world.addChild(credit_screen.text);
+		world.addChild(credit_screen.ret);
+		
+		// Active sprites at creation time
+		active_sprites.push(credit_screen.ret);
+	}
+	
+	// Clear this room
+	credit_screen.clear = function() {
+		world.removeChild(credit_screen.text);
+		world.removeChild(credit_screen.ret);
 		while(active_sprites.length > 0)
 			active_sprites.pop();
 	}
@@ -161,17 +226,44 @@ var intro_screen = new Sprite();
 			}
 		}
 		
+		intro_screen.ret = new TextBox("<< Return  ");
+		intro_screen.ret.font = "Courier";
+		intro_screen.ret.fontSize = 30;
+		intro_screen.ret.color = "#FFFFFF";
+		intro_screen.ret.x = 0;
+		intro_screen.ret.y = 690;
+		intro_screen.ret.mouseOver = false;
+		intro_screen.ret.bgColor = "#000000";
+		intro_screen.ret.drawBG = true;
+		intro_screen.ret.update = function() {
+			if(intro_screen.ret.mouseOver) {
+				intro_screen.ret.color = "#484848";
+			}else {
+				intro_screen.ret.color = "#FFFFFF";
+			}
+		}
+		intro_screen.ret.click = function() {
+			changeRoom(title_screen);
+		}
+		
 		
 		// Visible sprites at creation time
 		world.addChild(intro_screen.text);
+		world.addChild(intro_screen.ret);
 		world.addChild(intro_screen.next);
 		
 		// Active sprites at creation time
+		active_sprites.push(intro_screen.ret);
 		active_sprites.push(intro_screen.next);
 	}
 	
 	// Clear this room
 	intro_screen.clear = function() {
+		world.removeChild(intro_screen.text);
+		world.removeChild(intro_screen.ret);
+		world.removeChild(intro_screen.next);
+		while(active_sprites.length > 0)
+			active_sprites.pop();
 		
 	}
 	
@@ -184,7 +276,9 @@ var level01_hub = new Sprite();
 	
 	// Clear this room
 	level01_hub.clear = function() {
-		
+	while(active_sprites.length > 0)
+	while(active_sprites.length > 0)
+		active_sprites.pop();
 	}
 
 /***============================***/
