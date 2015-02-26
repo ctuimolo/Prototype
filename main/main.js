@@ -112,7 +112,7 @@ var title_screen = new Sprite();
 			}
 		}
 		title_screen.button_credit.click = function() {
-			changeRoom(intro_screen);
+			changeRoom(credit_screen);
 		}
 		
 		// Visible sprites at creation time
