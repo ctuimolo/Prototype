@@ -4,6 +4,10 @@
 
 // Use 2D context with Brine.js
 use2D = true;
+world.width = 1080;
+world.height = 720;
+world.image = Textures.load
+			("./Common/Textures/black box.png");
 
 /***===============================***/
 /*** Global objects initialization ***/
@@ -67,33 +71,120 @@ var title_screen = new Sprite();
 			("./Common/Textures/Title/title background.png");
 		
 		// This room's active sprites
-		title_screen.button_start = new Sprite();
-		title_screen.button_start.width  = 160;
-		title_screen.button_start.height = 60;
-		title_screen.button_start.x = 460;
+		title_screen.button_start = new TextBox("<< Start >>");
+		title_screen.button_start.font  = "Courier";
+		title_screen.button_start.fontSize  = 30;
+		title_screen.button_start.color = "#FFFFFF";
+		title_screen.button_start.x = 420;
 		title_screen.button_start.y = 360;
-		title_screen.button_start.image = Textures.load
-			("./Common/Textures/Title/start button up.png");
 		title_screen.button_start.mouseOver = false;
 		title_screen.button_start.update = function() {
 			if(title_screen.button_start.mouseOver) {
-				title_screen.button_start.image = Textures.load
-					("./Common/Textures/Title/start button over.png");
+				title_screen.button_start.color = "#484848";
 			}else {
-				title_screen.button_start.image = Textures.load
-					("./Common/Textures/Title/start button up.png");
+				title_screen.button_start.color = "#FFFFFF";
 			}
 		}
 		title_screen.button_start.click = function() {
-			console.log("Click!");
+			changeRoom(intro_screen);
+		}
+		
+		title_screen.button_credit = new TextBox("<< Credits >>");
+		title_screen.button_credit.font  = "Courier";
+		title_screen.button_credit.fontSize  = 30;
+		title_screen.button_credit.color = "#FFFFFF";
+		title_screen.button_credit.x = 405;
+		title_screen.button_credit.y = 400;
+		title_screen.button_credit.mouseOver = false;
+		title_screen.button_credit.update = function() {
+			if(title_screen.button_credit.mouseOver) {
+				title_screen.button_credit.color = "#484848";
+			}else {
+				title_screen.button_credit.color = "#FFFFFF";
+			}
+		}
+		title_screen.button_credit.click = function() {
+			changeRoom(intro_screen);
 		}
 		
 		// Visible sprites at creation time
 		world.addChild(title_screen.image_background);
 		world.addChild(title_screen.button_start);
+		world.addChild(title_screen.button_credit);
 		
 		// Active sprites at creation time
-		active_sprites.push(title_screen.button_start);
+		active_sprites.push(title_screen.button_start);	
+		active_sprites.push(title_screen.button_credit);	
+	}
+	
+	// Clear this room
+	title_screen.clear = function() {
+		world.removeChild(title_screen.image_background);
+		world.removeChild(title_screen.button_start);
+		world.removeChild(title_screen.button_credit);
+		while(active_sprites.length > 0)
+			active_sprites.pop();
+	}
+	
+/***===   "Intro screen"   ===***/
+var intro_screen = new Sprite();
+	// Create this room
+	intro_screen.create = function() {
+		// This room's passive sprites
+		intro_screen.text = new TextBox
+			("This is the prototype for \"Outline\"\n\n" +
+			 "In this demo we are showcasing one\n"+
+			 "scenario still in development\n\n"+
+			 "\"Outline\" is an atmospheric decision making\n"+
+			 "game based on ambiguity. The images in this game\n"+
+			 "depict a lone individual who manipulates the\n"+
+			 "fate of the unbeknownst...");
+		intro_screen.text.font = "Courier";
+		intro_screen.text.fontSize = 30;
+		intro_screen.text.color = "#FFFFFF";
+		
+		// This room's active sprites
+		intro_screen.next = new TextBox("Continue >>");
+		intro_screen.next.font = "Courier";
+		intro_screen.next.fontSize = 30;
+		intro_screen.next.color = "#FFFFFF";
+		intro_screen.next.x = 880;
+		intro_screen.next.y = 690;
+		intro_screen.next.mouseOver = false;
+		intro_screen.next.bgColor = "#000000";
+		intro_screen.next.drawBG = true;
+		intro_screen.next.update = function() {
+			if(intro_screen.next.mouseOver) {
+				intro_screen.next.color = "#484848";
+			}else {
+				intro_screen.next.color = "#FFFFFF";
+			}
+		}
+		
+		
+		// Visible sprites at creation time
+		world.addChild(intro_screen.text);
+		world.addChild(intro_screen.next);
+		
+		// Active sprites at creation time
+		active_sprites.push(intro_screen.next);
+	}
+	
+	// Clear this room
+	intro_screen.clear = function() {
+		
+	}
+	
+/***===   "1st Level main screen"   ===***/
+var level01_hub = new Sprite();
+	// Create this room
+	level01_hub.create = function() {
+		
+	}
+	
+	// Clear this room
+	level01_hub.clear = function() {
+		
 	}
 
 /***============================***/
