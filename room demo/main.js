@@ -17,19 +17,19 @@ var active_sprites = new Array();
 // Create an input manager for this room.
 /* The input manager calls any active sprite in the
  * active_sprites array's click(); function. */
-input_manager = new Sprite();
-input_manager.onMouseDown = function() {
-	// For each active sprite in room...  
-	for(var sprite in active_sprites){
-		sprite = active_sprites[sprite];
-		// If we are clicking on that sprite...
-		if(checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
-			// Do that sprites on click function...
-			sprite.click();
-			break;
+var input_manager = new Sprite();
+	input_manager.onMouseDown = function() {
+		// For each active sprite in room...  
+		for(var sprite in active_sprites){
+			sprite = active_sprites[sprite];
+			// If we are clicking on that sprite...
+			if(checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
+				// Do that sprites on click function...
+				sprite.click();
+				break;
+			}
 		}
 	}
-}
 
 // Create room manager
 /* The Room manager is a sprite handler that 
