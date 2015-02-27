@@ -69,6 +69,7 @@ var title_screen = new Sprite();
 		title_screen.image_background.y = 0;
 		title_screen.image_background.image = Textures.load
 			("./Common/Textures/Title/title background.png");
+		title_screen.image_background.alpha = title_screen.image_alpha;
 			
 		title_screen.data= new TextBox
 			("iDeek v.0.1");
@@ -276,7 +277,6 @@ var level01_hub = new Sprite();
 	
 	// Clear this room
 	level01_hub.clear = function() {
-	while(active_sprites.length > 0)
 	while(active_sprites.length > 0)
 		active_sprites.pop();
 	}
